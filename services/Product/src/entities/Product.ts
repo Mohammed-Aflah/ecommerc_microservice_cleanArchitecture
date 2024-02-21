@@ -5,6 +5,7 @@ export class Product {
     public readonly price: number,
     public readonly productName: string,
     public readonly status?: boolean,
-    public readonly _id?: string
+    public readonly _id?: string,
+    public readonly images?: string[]
   ) {}
 }

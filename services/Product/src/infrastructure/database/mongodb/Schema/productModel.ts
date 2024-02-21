@@ -16,6 +16,7 @@ const ProductModel = new mongoose.Schema({
     trim: true,
   },
   status: Boolean,
+  images: [String],
 });
 
 export default mongoose.model(String(process.env.PRODUCT_MODEL), ProductModel);

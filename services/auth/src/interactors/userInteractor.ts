@@ -14,7 +14,7 @@ export class AuthInteractor implements IAuthInteractor {
   async singUp(body: Auth): Promise<{ user: Auth; token: string }> {
     const { user } = await this.repository.signUp(body);
     const token = generateToken({
-      userId: user?._id?.toString() ?? "",
+      _id: user?._id?.toString() ?? "",
       rol: "user",
     });
     return { user, token };
@@ -30,7 +30,7 @@ export class AuthInteractor implements IAuthInteractor {
   ): Promise<{ user: Auth; token: string; rol: "admin" | "user" }> {
     const { user, rol } = await this.repository.login(body);
     const token = generateToken({
-      userId: user._id?.toString() ?? "",
+      _id: user._id?.toString() ?? "",
       rol: "admin",
     });
 

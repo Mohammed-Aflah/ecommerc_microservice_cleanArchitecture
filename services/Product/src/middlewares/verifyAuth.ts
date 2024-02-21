@@ -1,6 +1,8 @@
-import { verifyJwtToken } from "@aflah/jwt_verify";
+// import { verifyJwtToken } from "@aflah/jwt_verify";
+import { log } from "console";
 import { Request, Response, NextFunction } from "express";
-const verifyAuthentication = (
+import jwt from "jsonwebtoken";
+export const verifyAuthentication = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -10,11 +12,18 @@ const verifyAuthentication = (
     if (!token) {
       throw new Error(" Unautherized!!!");
     }
-    const payload= verifyJwtToken(String(process.env.JWT_KEY), token);
-    if(!payload){
-        throw new Error(' Unautherized!!!')
-    }
-    const {userId,rol}=payload
+    jwt.verify(token, String(process.env.JWT_KEY), (err: any, payload: any) => {
+      console.log("🚀 ~ jwt.verify ~ payload:", payload);
+
+      if (err) {
+        throw new Error(" Unautherized!!!");
+      }
+      const { _id, rol } = payload;
+      console.log(payload);
+      if (rol === "admin") {
+        next();
+      }
+    });
   } catch (error: any | Error) {
     res.status(401).json({ status: false, err: error.message });
   }

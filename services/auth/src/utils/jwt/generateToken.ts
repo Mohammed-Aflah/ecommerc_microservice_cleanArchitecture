@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 export const generateToken = (payload: {
-  userId: string;
+  _id: string;
   rol: "admin" | "user";
 }) => {
   const jwtKey: string = String(process.env.JWT_KEY);
