@@ -1,6 +1,6 @@
 {
   "name": "product",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,7 @@
     "@types/node": "^20.11.19"
   },
   "dependencies": {
+    "@aflah/jwt_verify": "^1.0.0",
     "@types/mongoose": "^5.11.97",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
