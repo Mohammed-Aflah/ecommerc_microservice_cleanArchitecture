@@ -9,6 +9,7 @@ const authModel = new mongoose.Schema({
     default: "user",
   },
   name: String,
+  status:Boolean,
 });
 const modelName = String(process.env.AUTH_MODEL);
 export default mongoose.model(modelName, authModel);

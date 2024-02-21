@@ -26,4 +26,27 @@ export class AuthRepository implements IAuthRepository {
     }
     return { user: userData.toObject(), rol: userData.role };
   }
+  //   ____________________________________________________________________________
+  //
+  //   handling block and unblock user
+  //   ____________________________________________________________________________
+  async blockAndUnblock(body: {
+    _id: string;
+    payload: boolean;
+  }): Promise<{ user: Auth; status: boolean }> {
+    await AuthenticationModel.updateOne(
+      { _id: body._id },
+      {
+        $set: {
+          status: body.payload,
+        },
+      }
+    );
+
+    const userData = await AuthenticationModel.findOne({ _id: body._id });
+    if (!userData) {
+      throw new Error("User not found with the given _id");
+    }
+    return { user: userData.toObject(), status: body.payload };
+  }
 }

@@ -7,6 +7,10 @@ export class AuthInteractor implements IAuthInteractor {
   constructor(repository: IAuthRepository) {
     this.repository = repository;
   }
+  //   ____________________________________________________________________________
+  //
+  //   User Signup Or User registration
+  //   ____________________________________________________________________________
   async singUp(body: Auth): Promise<{ user: Auth; token: string }> {
     const { user } = await this.repository.signUp(body);
     const token = generateToken({
@@ -15,6 +19,12 @@ export class AuthInteractor implements IAuthInteractor {
     });
     return { user, token };
   }
+
+  //   ____________________________________________________________________________
+  //
+  //   User and admin login
+  //   ____________________________________________________________________________
+
   async login(
     body: any
   ): Promise<{ user: Auth; token: string; rol: "admin" | "user" }> {
@@ -25,5 +35,17 @@ export class AuthInteractor implements IAuthInteractor {
     });
 
     return { user, token, rol };
+  }
+
+  //   ____________________________________________________________________________
+  //
+  //   handling block and unblock user
+  //   ____________________________________________________________________________
+  async blockAndUnblock(body: {
+    _id: string;
+    payload: boolean;
+  }): Promise<{ user: Auth; status: boolean }> {
+    const { user, status } = await this.repository.blockAndUnblock(body);
+    return { user, status };
   }
 }
