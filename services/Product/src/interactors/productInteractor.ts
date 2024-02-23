@@ -23,4 +23,12 @@ export class ProductInteractor implements IProductInteractor {
       throw new Error(error);
     }
   }
+  async addProduct(body: Product): Promise<Product> {
+    try {
+      const createdProduct = await this.repository.addProduct(body);
+      return createdProduct;
+    } catch (error: any | Error) {
+      throw new Error(error);
+    }
+  }
 }

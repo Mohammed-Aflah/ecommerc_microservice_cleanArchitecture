@@ -1,6 +1,7 @@
 import { Product } from "../entities/Product";
 
 export interface IProductRepository {
-  getAllProduct(limit:number): Promise<Product[]>;
+  getAllProduct(limit: number): Promise<Product[]>;
   getSpecificProduct(id: string): Promise<Product>;
+  addProduct(body: Product): Promise<Product>;
 }

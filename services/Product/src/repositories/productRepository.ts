@@ -23,4 +23,23 @@ export class ProductRepository implements IProductRepository {
     const product = await productModel.findById(id);
     return product?.toObject();
   }
+  async addProduct(body: Product): Promise<Product> {
+    try {
+      const producNameExist=await productModel.findOne({productName:body.productName})
+      if(producNameExist){
+        throw new Error('Product already exists with this name')
+      }
+      const newProduct=new productModel({
+        productName:body.productName,
+        price:body.price,
+        description:body.description,
+        quantity:body.quantity,
+      })
+      await newProduct.save()
+
+      return newProduct.toObject()
+    } catch (error:any|Error) {
+      throw new Error(error);
+    }
+  }
 }

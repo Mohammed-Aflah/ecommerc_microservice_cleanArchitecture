@@ -1,5 +1,4 @@
 // import { verifyJwtToken } from "@aflah/jwt_verify";
-import { log } from "console";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 export const verifyAuthentication = (
@@ -8,6 +7,7 @@ export const verifyAuthentication = (
   next: NextFunction
 ) => {
   try {
+    
     const token = req?.cookies?.token;
     if (!token) {
       throw new Error(" Unautherized!!!");
