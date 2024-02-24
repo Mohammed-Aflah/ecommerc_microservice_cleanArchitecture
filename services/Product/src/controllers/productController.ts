@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { IProductInteractor } from "../interfaces/IProductInteractory";
+import { IProductInteractor } from "../interfaces/IProductInteractor";
 export class ProductController {
   private interactor: IProductInteractor;
   constructor(interactor: IProductInteractor) {
@@ -19,7 +19,7 @@ export class ProductController {
     try {
       const { productId } = req.params;
       const product = await this.interactor.getOneProduct(productId);
-
+      
       res.json({ status: true, product });
     } catch (err: Error | any) {
       res.status(500).json({ status: false, err: err.message });

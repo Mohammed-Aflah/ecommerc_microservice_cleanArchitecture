@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { IProductInteractor } from "../../interfaces/interactors_interfaces/IProductInteractor";
+import { productCreateProducer } from "../../infrastructure/message-brokers/kafka/producers/product/productCreateProducer";
+import { productUpdateProducer } from "../../infrastructure/message-brokers/kafka/producers/product/productUpdateProducer";
 
 export class ProductController {
   private productInteractor: IProductInteractor;
@@ -18,6 +20,14 @@ export class ProductController {
   async addProduct(req: Request, res: Response) {
     try {
       const product = await this.productInteractor.addProduct(req.body);
+      await productCreateProducer({
+        _id: String(product?._id),
+        description: product.description,
+        price: product.price,
+        productName: product.productName,
+        quantity: product.quantity,
+        status: Boolean(product?.status),
+      });
       res.status(200).json({ status: true, product });
     } catch (error: Error | any) {
       res.status(500).json({ status: true, err: error.message });
@@ -30,7 +40,13 @@ export class ProductController {
         req.body,
         productId
       );
-      res.status(200).json({ status: true, product });
+      productUpdateProducer(productId, req.body)
+        .then(() => {
+          res.status(200).json({ status: true, product });
+        })
+        .catch((err) => {
+          throw err;
+        });
     } catch (error: Error | any) {
       res.status(500).json({ status: true, err: error.message });
     }

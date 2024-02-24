@@ -14,7 +14,6 @@ const ProductModel = new mongoose.Schema({
   productName: {
     type: String,
     trim: true,
-    required:[true,'Product name  is required'],
     // unique:[true,'Product name must be unique'],
   },
   status: {type:Boolean,default:true},

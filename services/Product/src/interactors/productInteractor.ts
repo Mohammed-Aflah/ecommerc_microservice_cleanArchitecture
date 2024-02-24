@@ -1,5 +1,5 @@
 import { Product } from "../entities/Product";
-import { IProductInteractor } from "../interfaces/IProductInteractory";
+import { IProductInteractor } from "../interfaces/IProductInteractor";
 import { IProductRepository } from "../interfaces/IProductRepository";
 
 export class ProductInteractor implements IProductInteractor {
@@ -29,6 +29,24 @@ export class ProductInteractor implements IProductInteractor {
       return createdProduct;
     } catch (error: any | Error) {
       throw new Error(error);
+    }
+  }
+  async updateProduct(
+    id: string,
+    body: {
+      _id?: string;
+      description?: string;
+      quantity?: number;
+      price?: number;
+      productName?: string;
+      status?: boolean;
+    } | null
+  ): Promise<Product> {
+    try {
+      const updateProduct = await this.repository.updateProduct(id, body);
+      return updateProduct;
+    } catch (error) {
+      throw error;
     }
   }
 }

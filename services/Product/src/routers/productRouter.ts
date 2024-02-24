@@ -17,6 +17,6 @@ productRouter
   );
 productRouter
   .route("/getProduct/:productId")
-  .post(productController.getAllProduct.bind(productController));
+  .get(productController.getAllProduct.bind(productController));
 
 export default productRouter;

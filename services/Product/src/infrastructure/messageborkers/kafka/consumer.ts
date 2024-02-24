@@ -1,4 +1,7 @@
 import { consumer } from ".";
+import { ProductInteractor } from "../../../interactors/productInteractor";
+import { ProductRepository } from "../../../repositories/productRepository";
+import { AddProductConsumerActions } from "./consumer_actions/productConsumers";
 
 export const watchKafkaConsumer = async () => {
   try {
@@ -9,11 +12,26 @@ export const watchKafkaConsumer = async () => {
       fromBeginning: true,
     });
 
-    // const subscriber=crea
-
     await consumer.run({
       eachMessage: async ({ message }) => {
-        console.log("🚀 ~ eachMessage:async ~ message:", message);
+        const { key, value } = message;
+        const repository = new ProductRepository();
+        const interactor = new ProductInteractor(repository);
+        const consumerActions = new AddProductConsumerActions(interactor);
+        switch (JSON.parse(JSON.stringify(message.key?.toString()))) {
+          case "create_product":
+            await consumerActions.addProduct(
+              JSON.parse(value?.toString("utf-8") ?? "")
+            );
+            break;
+          case "update_product":
+            const data = JSON.parse(value?.toString("utf-8") ?? "");
+            await consumerActions.updateProduct(
+              data?.id,
+              JSON.parse(data.body)
+            );
+            break;
+        }
       },
     });
   } catch (error: any | Error) {
@@ -25,4 +43,3 @@ export default async function shutDownConsumer() {
   await consumer.stop();
   await consumer.disconnect();
 }
-    

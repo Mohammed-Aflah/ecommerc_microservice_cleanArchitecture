@@ -5,12 +5,21 @@ dotenv.config();
 import "./infrastructure/databases/mongodb/mongo.config";
 import productRouter from "./routers/productRouter";
 import userRouter from "./routers/userRoute";
+import { stopConsumer, watchKafkaConsumer } from "./infrastructure/message-brokers/kafka/consumer";
 const app = express();
 app.use(cookieParser());
 app.use(express.json());
 
 app.use("/product", productRouter);
 app.use("/user", userRouter);
+
+(async()=>{
+  await watchKafkaConsumer()
+})
+process.on("SIGTERM",async()=>{
+  console.log(`Consumer stoping stage`);
+  stopConsumer()
+})
 
 app.listen(process.env.ADMIN_SERVICE_PORT, () =>
   console.log(
