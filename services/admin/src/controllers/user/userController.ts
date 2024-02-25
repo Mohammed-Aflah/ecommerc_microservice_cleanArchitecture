@@ -28,6 +28,7 @@ export class UserController {
     try {
       const { userId } = req.params;
       const user = await this.interactor.blockandUnblockUsers(userId)
+      
       res.status(200).json({ status: true, user,message:`${user.name} ${!user.status?"blocked":"unblocked"}`,blockStatus:!user.status });
     } catch (error: Error | any) {
       return res.status(500).json({ status: false, err: error.message });

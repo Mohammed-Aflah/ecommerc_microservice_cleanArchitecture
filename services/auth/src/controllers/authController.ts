@@ -11,11 +11,11 @@ export class AuthController {
     try {
       const body = req.body;
       const { user, token } = await this.interactor.singUp(body);
-      await userCreateProducer(user);
       res.cookie("token", token, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
       });
+      await userCreateProducer(user);
       res.status(200).json({ user, token });
     } catch (error: Error | any) {
       res.status(500).json({ err: error?.message, status: false });
