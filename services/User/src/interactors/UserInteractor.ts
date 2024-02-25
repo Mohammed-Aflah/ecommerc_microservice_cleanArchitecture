@@ -7,8 +7,8 @@ export class UsreInteractor implements IUserInteractor {
   constructor(repository: IUserRepository) {
     this.repository = repository;
   }
-  async signupUser(body: User): Promise<{ user: User; token: string }> {
-    const data = await this.repository.signupUser(body);
+  async createUser(body: User): Promise<{ user: User; token: string }> {
+    const data = await this.repository.createUser(body);
     const token = jwt.sign({ userId: data._id }, "secret", {
       expiresIn: "24h",
     });

@@ -16,4 +16,7 @@ export class UserInteractor implements IUserInteractor {
   async blockandUnblockUsers(id: string): Promise<User> {
     return await this.userRepository.blockAndUnblockUser(id);
   }
+  async createUser(body: User): Promise<User> {
+    return await this.userRepository.createUser(body);
+  }
 }

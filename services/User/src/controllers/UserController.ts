@@ -6,10 +6,10 @@ export class UserController {
   constructor(interactor: IUserInteractor) {
     this.interactor = interactor;
   }
-  async signupUser(req: Request, res: Response, next: NextFunction) {
+  async createUser(req: Request, res: Response, next: NextFunction) {
     try {
       const body = req.body;
-      const { user, token } = await this.interactor.signupUser(body);
+      const { user, token } = await this.interactor.createUser(body);
 
       return res.status(200).json({ user, token });
     } catch (error) {

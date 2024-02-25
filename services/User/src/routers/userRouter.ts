@@ -8,7 +8,7 @@ const repository = new UserRepository();
 const interactor = new UsreInteractor(repository);
 const controller = new UserController(interactor);
 
-userRouter.post("/signup", controller.signupUser.bind(controller));
-userRouter.post("/login", controller.loginUser.bind(controller));
+// userRouter.post("/creat", controller.createUser.bind(controller));
+// userRouter.post("/login", controller.loginUser.bind(controller));
 
 export default userRouter

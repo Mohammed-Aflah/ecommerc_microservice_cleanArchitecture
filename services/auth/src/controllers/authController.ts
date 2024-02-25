@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { IAuthInteractor } from "../interfaces/IAuthInteractor";
+import { userCreateProducer } from "../infrastructure/messgebroker/kafka/producers/userCreateProducer";
 
 export class AuthController {
   private interactor: IAuthInteractor;
@@ -10,7 +11,11 @@ export class AuthController {
     try {
       const body = req.body;
       const { user, token } = await this.interactor.singUp(body);
-      res.cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 });
+      await userCreateProducer(user);
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+      });
       res.status(200).json({ user, token });
     } catch (error: Error | any) {
       res.status(500).json({ err: error?.message, status: false });
@@ -21,7 +26,10 @@ export class AuthController {
     try {
       const body = req.body;
       const { user, token, rol } = await this.interactor.login(body);
-      res.cookie("token", token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24});
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+      });
       res.status(200).json({ user, token, message: `${rol} logged` });
     } catch (error: Error | any) {
       res.status(500).json({ status: false, err: error.message });
@@ -29,7 +37,7 @@ export class AuthController {
   }
   logout(_: Request, res: Response) {
     try {
-      res.clearCookie("token")
+      res.clearCookie("token");
       res.status(200).json({ status: true, message: "Logout successfull" });
     } catch (error: Error | any) {
       res.status(500).json({ status: false, err: error.message });

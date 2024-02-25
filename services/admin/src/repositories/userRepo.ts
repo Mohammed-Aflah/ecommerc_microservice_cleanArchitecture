@@ -24,4 +24,15 @@ export class UserRepository implements IUserRepository {
       throw Error("something went wrong");
     }
   }
+  async createUser(body: User): Promise<User> {
+    const newUser = new userModel({
+      _id: body._id,
+      name: body.name,
+      password: body.password,
+      email: body.email,
+      role: "user",
+    });
+    await newUser.save();
+    return newUser.toObject();
+  }
 }
