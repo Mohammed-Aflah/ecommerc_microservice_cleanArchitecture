@@ -11,10 +11,17 @@ export class UserInteractor implements IUserInteractor {
     return await this.userRepository.getAllUsers(limit);
   }
   async getSpecificUser(id: string): Promise<User> {
-    return await this.userRepository.getSpecificUser(id);
+    const user=await this.userRepository.getSpecificUser(id);
+    return user
   }
-  async blockandUnblockUsers(id: string): Promise<User> {
-    return await this.userRepository.blockAndUnblockUser(id);
+  // async blockandUnblockUsers(id: string): Promise<User> {
+  //   return await this.userRepository.blockAndUnblockUser(id);
+  // }
+  async blockUser(id: string): Promise<User> {
+    return await this.userRepository.blockUser(id)
+  }
+  async unblockUser(id: string): Promise<User> {
+    return await this.userRepository.blockUser(id)
   }
   async createUser(body: User): Promise<User> {
     return await this.userRepository.createUser(body);

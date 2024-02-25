@@ -5,8 +5,8 @@ import { UserConsumerActions } from "./consumers/allConsumers";
 
 export const watchKafkaConsumer = async () => {
   try {
-    console.log('Consumer Running');
-    
+    console.log("Consumer Running");
+
     consumer.connect();
 
     await consumer.subscribe({
@@ -27,6 +27,10 @@ export const watchKafkaConsumer = async () => {
           case "create_user":
             const data = JSON.parse(value?.toString("utf-8") ?? "");
             await consumerActions.createUserAction(data);
+            break;
+          case "blockunblock_user":
+            const blockDetails = JSON.parse(value?.toString("utf-8") ?? "");
+            await consumerActions.blockAndUnblock(blockDetails);
             break;
         }
       },

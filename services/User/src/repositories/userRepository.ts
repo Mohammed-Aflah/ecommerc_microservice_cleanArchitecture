@@ -9,12 +9,11 @@ export class UserRepository implements IUserRepository {
       throw new Error("User Already Exists with this email");
     }
     const newUser = await new UserDb({
-      _id:body._id,
+      _id: body._id,
       name: body?.name,
       email: body?.email,
       password: body?.password,
-      role:"user"
-      
+      role: "user",
     }).save();
     return newUser.toObject() as User;
   }
@@ -24,5 +23,16 @@ export class UserRepository implements IUserRepository {
     if (body.password !== userAlreadyLogged.password)
       throw new Error("Incorrect email or password");
     return userAlreadyLogged.toObject();
+  }
+  async blockAndUnblock(id: string, status: boolean): Promise<User> {
+    const newUser = await UserDb.findById(id);
+    console.log("🚀 ~ UserRepository ~ blockAndUnblock ~ newUser:", newUser);
+
+    if (!newUser) {
+      throw new Error("user not found");
+    }
+    newUser.status = status;
+    newUser.save();
+    return newUser.toObject();
   }
 }

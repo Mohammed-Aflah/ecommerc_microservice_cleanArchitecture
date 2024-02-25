@@ -5,7 +5,10 @@ const userModel = new mongoose.Schema(
     name: String,
     email: String,
     password: String,
-    status: Boolean,
+    status: {
+      type: Boolean,
+      default: true,
+    },
     role: {
       type: String,
       enum: ["user", "admin"],

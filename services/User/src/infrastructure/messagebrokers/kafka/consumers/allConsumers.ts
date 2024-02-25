@@ -15,9 +15,24 @@ export class UserConsumerActions {
       );
 
       const newUser = await this.interactor.createUser(userData);
-      console.log("🚀 ~ UserConsumerActions ~ createUserAction ~ newUser:", newUser)
+      console.log(
+        "🚀 ~ UserConsumerActions ~ createUserAction ~ newUser:",
+        newUser
+      );
     } catch (error) {
       console.log(`Error in user create consumer ${error}`);
+    }
+  }
+
+  async blockAndUnblock(data: { id: string; status: boolean }) {
+    try {
+      const newUser = await this.interactor.blockAndUnblock(
+        data.id,
+        data.status
+      );
+      console.log(newUser);
+    } catch (error) {
+      console.log("🚀 ~ UserConsumerActions ~ blockAndUnblock ~ error:", error);
     }
   }
 }

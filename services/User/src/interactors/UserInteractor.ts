@@ -21,4 +21,7 @@ export class UsreInteractor implements IUserInteractor {
     });
     return { user: data, token };
   }
+  async blockAndUnblock(id: string, status: boolean): Promise<User> {
+    return await this.repository.blockAndUnblock(id, status);
+  }
 }
