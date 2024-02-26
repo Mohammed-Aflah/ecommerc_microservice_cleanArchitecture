@@ -31,6 +31,9 @@ export const watchKafkaConsumer = async () => {
               JSON.parse(data.body)
             );
             break;
+          case "delete_product":
+            const productData=JSON.parse(value?.toString('utf-8')??"")
+            await consumerActions.deleteProductAction(productData._id)
         }
       },
     });

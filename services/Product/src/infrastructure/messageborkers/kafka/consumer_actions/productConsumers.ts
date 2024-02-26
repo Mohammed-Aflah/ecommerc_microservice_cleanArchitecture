@@ -45,10 +45,22 @@ export class AddProductConsumerActions {
       console.log("🚀 ~ updateProduct ~ body:", body);
 
       const updateProduct = await this.interactor.updateProduct(id, body);
-      console.log("🚀 ~ updateProduct ***** ~ updateProduct:", updateProduct)
+      console.log("🚀 ~ updateProduct ***** ~ updateProduct:", updateProduct);
     } catch (error) {
       console.log(`Error in product update consumer ${error}`);
-      return
+      return;
+    }
+  }
+  async deleteProductAction(_id: string) {
+    try {
+      const deletedProduct = this.interactor.deleteProduct(_id);
+      console.log(
+        "🚀 ~ AddProductConsumerActions ~ deleteProductAction ~ deletedProduct:",
+        deletedProduct
+      );
+    } catch (error) {
+      console.log(`Error in delete product consumer`);
+      return;
     }
   }
 }

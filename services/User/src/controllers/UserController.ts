@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { IUserInteractor } from "../intefaces/IUserInteractor";
 import { Request, Response, NextFunction } from "express";
 
@@ -31,7 +32,7 @@ export class UserController {
     try {
       const { limit } = req.query;
       const { userId } = req.params;
-      const addresses = this.interactor.getAllAddresses(
+      const addresses =await this.interactor.getAllAddresses(
         Number(limit) ?? 0,
         userId
       );
@@ -43,7 +44,11 @@ export class UserController {
   async addAddresses(req: Request, res: Response) {
     try {
       const { userId } = req.params;
-      const { body } = req;
+      let { body } = req;
+      body={
+        ...body,
+        userId:new mongoose.Types.ObjectId(userId)
+      }
       const address = await this.interactor.addAddress(body);
       res.status(200).json({ status: true, address });
     } catch (error: any | Error) {

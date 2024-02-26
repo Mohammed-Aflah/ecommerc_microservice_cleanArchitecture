@@ -49,4 +49,8 @@ export class ProductInteractor implements IProductInteractor {
       throw error;
     }
   }
+  async deleteProduct(_id: string): Promise<Product> {
+    const deleteProduct = await this.repository.deleteProduct(_id);
+    return deleteProduct;
+  }
 }

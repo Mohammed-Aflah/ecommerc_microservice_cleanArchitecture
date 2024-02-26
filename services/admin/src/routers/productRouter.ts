@@ -11,10 +11,14 @@ const productInteractor = new ProductInteractor(productRepo);
 const productController = new ProductController(productInteractor);
 productRouter
   .route("/api/product")
-  .post(verifyAdminAuth,productController.addProduct.bind(productController))
-  .get(verifyAdminAuth,productController.getAllProduct.bind(productController));
+  .post(verifyAdminAuth, productController.addProduct.bind(productController))
+  .get(
+    verifyAdminAuth,
+    productController.getAllProduct.bind(productController)
+  );
 productRouter
   .route("/api/product/control/:productId")
-  .put(verifyAdminAuth,productController.updateProduct.bind(productController))
-  .get(verifyAdminAuth,productController.getOneProduct.bind(productController));
+  .put(verifyAdminAuth, productController.updateProduct.bind(productController))
+  .get(verifyAdminAuth, productController.getOneProduct.bind(productController))
+  .delete(verifyAdminAuth);
 export default productRouter;

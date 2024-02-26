@@ -5,4 +5,5 @@ export interface IProductRepository {
   updateProduct(body: Product, id: string): Promise<Product>;
   getAllProduct(): Promise<Product[]>;
   getSpecificProduct(id: string): Promise<Product>;
+  deleteProduct(id:string):Promise<Product>
 }

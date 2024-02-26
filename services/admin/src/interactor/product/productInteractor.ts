@@ -17,6 +17,10 @@ export class ProductInteractor implements IProductInteractor {
     return await this.productRepository.getAllProduct();
   }
   async getSpecificProduct(id: string): Promise<Product> {
-    return this.productRepository.getSpecificProduct(id);
+    return await this.productRepository.getSpecificProduct(id);
+  }
+  async deleteProduct(id: string): Promise<Product> {
+    const product = await this.productRepository.deleteProduct(id);
+    return product;
   }
 }

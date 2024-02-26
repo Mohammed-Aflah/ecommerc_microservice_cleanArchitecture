@@ -44,7 +44,7 @@ export class UserRepository implements IUserRepository {
   // _________________________________________________________________
 
   async addAddress(body: AddressEntity): Promise<AddressEntity> {
-    const newAddress = new Address(body);
+    const newAddress = new Address({...body});
     await newAddress.save();
     return newAddress.toObject();
   }

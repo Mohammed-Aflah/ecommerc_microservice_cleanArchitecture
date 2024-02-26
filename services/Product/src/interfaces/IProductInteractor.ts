@@ -15,4 +15,5 @@ export interface IProductInteractor {
       status?: boolean;
     } | null
   ): Promise<Product>;
+  deleteProduct(_id: string): Promise<Product>;
 }

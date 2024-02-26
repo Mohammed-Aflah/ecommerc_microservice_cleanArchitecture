@@ -25,5 +25,14 @@ export class ProductRepository implements IProductRepository {
       throw Error("something went wrong");
     }
   }
-  
+  async deleteProduct(id: string): Promise<Product> {
+    const product = await productMoel.findById(id);
+    if (product) {
+      product.status = false;
+      await product.save();
+    } else {
+      throw new Error("Product not found");
+    }
+    return product.toObject();
+  }
 }

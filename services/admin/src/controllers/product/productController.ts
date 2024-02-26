@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { IProductInteractor } from "../../interfaces/interactors_interfaces/IProductInteractor";
 import { productCreateProducer } from "../../infrastructure/message-brokers/kafka/producers/product/productCreateProducer";
 import { productUpdateProducer } from "../../infrastructure/message-brokers/kafka/producers/product/productUpdateProducer";
+import { productDeleteProducer } from "../../infrastructure/message-brokers/kafka/producers/product/productDeleteProducer";
 
 export class ProductController {
   private productInteractor: IProductInteractor;
@@ -59,6 +60,19 @@ export class ProductController {
       );
       res.status(200).json({ status: true, product });
     } catch (error: Error | any) {
+      res.status(500).json({ status: true, err: error.message });
+    }
+  }
+
+  async deleteProduct(req: Request, res: Response) {
+    try {
+      const { productId } = req.params;
+      const deletedProduct = await this.productInteractor.deleteProduct(
+        productId
+      );
+      await productDeleteProducer(productId);
+      return res.status(200).json({ status: true, product: deletedProduct });
+    } catch (error: any | Error) {
       res.status(500).json({ status: true, err: error.message });
     }
   }

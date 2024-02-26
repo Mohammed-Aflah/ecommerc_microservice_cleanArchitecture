@@ -33,7 +33,7 @@ export class ProductRepository implements IProductRepository {
         throw new Error("Product already exists with this name");
       }
       const newProduct = new productModel({
-        _id:new mongoose.Types.ObjectId(body._id),
+        _id: new mongoose.Types.ObjectId(body._id),
         productName: body.productName,
         price: body.price,
         description: body.description,
@@ -59,15 +59,22 @@ export class ProductRepository implements IProductRepository {
     if (!body) {
       throw new Error("Invalid update data");
     }
-     await productModel.updateOne(
-      { _id: id },
-      { $set: body }
-    );
+    await productModel.updateOne({ _id: id }, { $set: body });
     const updatedProduct = await productModel.findById(id);
     if (updatedProduct) {
       return updatedProduct.toObject();
     } else {
-      throw new Error("Product not found after update "+id);
+      throw new Error("Product not found after update " + id);
+    }
+  }
+  async deleteProduct(_id: string): Promise<Product> {
+    const deletingProduct = await productModel.findById(_id);
+    if (deletingProduct) {
+      deletingProduct.status = false;
+      await deletingProduct.save();
+      return deletingProduct.toObject();
+    } else {
+      throw new Error("Product not found");
     }
   }
 }

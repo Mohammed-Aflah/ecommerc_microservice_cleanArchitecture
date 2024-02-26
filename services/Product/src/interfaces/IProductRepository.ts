@@ -12,4 +12,5 @@ export interface IProductRepository {
     productName?: string;
     status?: boolean;
   }|null):Promise<Product>
+  deleteProduct(_id: string): Promise<Product>;
 }
