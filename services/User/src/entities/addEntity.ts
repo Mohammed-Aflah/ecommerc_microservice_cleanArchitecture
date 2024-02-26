@@ -6,6 +6,9 @@ export class AddressEntity {
     public readonly building: string,
     public readonly email: string,
     public readonly street: string,
-    public readonly _id?: string
+    public readonly name: string,
+    public readonly _id?: string,
+    public readonly status?: boolean,
+    public readonly userId?:string
   ) {}
 }

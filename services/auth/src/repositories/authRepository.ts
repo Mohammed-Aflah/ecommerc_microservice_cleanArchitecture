@@ -31,22 +31,23 @@ export class AuthRepository implements IAuthRepository {
   //   handling block and unblock user
   //   ____________________________________________________________________________
   async blockAndUnblock(body: {
-    _id: string;
-    payload: boolean;
+    id: string;
+    status: boolean;
   }): Promise<{ user: Auth; status: boolean }> {
     await AuthenticationModel.updateOne(
-      { _id: body._id },
+      { _id: body.id },
       {
         $set: {
-          status: body.payload,
+          status: body.status,
         },
       }
-    );
-
-    const userData = await AuthenticationModel.findOne({ _id: body._id });
+      );
+      console.log("🚀 ~ AuthRepository ~ body:", body)
+    
+    const userData = await AuthenticationModel.findOne({ _id: body.id });
     if (!userData) {
       throw new Error("User not found with the given _id");
     }
-    return { user: userData.toObject(), status: body.payload };
+    return { user: userData.toObject(), status: body.status };
   }
 }

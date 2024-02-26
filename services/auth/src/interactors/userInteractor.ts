@@ -42,8 +42,8 @@ export class AuthInteractor implements IAuthInteractor {
   //   handling block and unblock user
   //   ____________________________________________________________________________
   async blockAndUnblock(body: {
-    _id: string;
-    payload: boolean;
+    id: string;
+    status: boolean;
   }): Promise<{ user: Auth; status: boolean }> {
     const { user, status } = await this.repository.blockAndUnblock(body);
     return { user, status };

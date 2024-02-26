@@ -8,13 +8,13 @@ export const watchKafkaConsumer = async () => {
     consumer.connect(); // -> Connecting consumer
 
     await consumer.subscribe({
-      topic: "auth-service-topic",
+      topic: "user-service-topic",
       fromBeginning: true,
     });
 
     await consumer.run({
       eachMessage: async ({ message }) => {
-        console.log("🚀 ~ eachMessage: ~ message:", message)
+        console.log("🚀 @@@ Auth @#", message);
         const { key, value } = message;
 
         // injecting dependencies
@@ -23,9 +23,22 @@ export const watchKafkaConsumer = async () => {
         const userBlockAction = new UserUnblockAction(interactor);
 
         // await userBlockAction.blockAction({ _id:value._id });
+        // console.log(JSON.parse(value?.toString('utf-8')??""),' **');
+        
+        switch (key?.toString()) {
+          case "blockunblock_user":
+            const data = JSON.parse(value?.toString("utf8") ?? "");
+            await userBlockAction.blockAction(data);
+            break;
+        }
       },
     });
   } catch (error: Error | any) {
     console.log(`Something went wrong -> Kafka consuemr ${error.message}`);
   }
+};
+
+export const stopConsumer = async () => {
+  await consumer.stop()
+  await consumer.disconnect()
 };

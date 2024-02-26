@@ -5,11 +5,11 @@ export class UserUnblockAction {
   constructor(interactor: IAuthInteractor) {
     this.interactor = interactor;
   }
-  async blockAction({ _id, payload }: { _id: string; payload: boolean }) {
+  async blockAction({ id, status }: { id: string; status: boolean }) {
     try {
-      const {user,status} = await this.interactor.blockAndUnblock({ _id, payload });
+      console.log(status,"🚀 ~ UserUnblockAction ~ blockAction ~ status:",id)
+      const {user} = await this.interactor.blockAndUnblock({ id, status });
       
-      console.log("🚀 ~ UserUnblockAction ~ blockAction ~ status:", status)
       console.log('block action called');
       console.log("🚀 ~ UserUnblockAction ~ blockAction ~ user:", user)
       

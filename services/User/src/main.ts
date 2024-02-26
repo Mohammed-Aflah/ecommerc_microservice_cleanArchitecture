@@ -18,7 +18,7 @@ app.use(express.json());
   });
 })();
 app.use(errorHandler);
-// app.use("/", userRouter);
+app.use("/", userRouter);
 
 app.listen(process.env.USER_SERVICE_PORT, () =>
   console.log(`User service started ${process.env.USER_SERVICE_PORT}`)
