@@ -13,6 +13,15 @@ export const productDeleteProducer = async (productId: string) => {
           },
         ],
       },
+      {
+        topic: "cart-service-topic",
+        messages: [
+          {
+            key: "delete_product",
+            value: JSON.stringify({ _id: productId }),
+          },
+        ],
+      },
     ];
 
     await producer.sendBatch({ topicMessages: messsages });

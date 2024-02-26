@@ -16,6 +16,15 @@ export const userBlockAndUnblock = async (data: {
           },
         ],
       },
+      {
+        topic: "cart-service-topic",
+        messages: [
+          {
+            key: "blockunblock_user",
+            value: JSON.stringify(data),
+          },
+        ],
+      },
     ];
 
     await producer.sendBatch({ topicMessages: messages });

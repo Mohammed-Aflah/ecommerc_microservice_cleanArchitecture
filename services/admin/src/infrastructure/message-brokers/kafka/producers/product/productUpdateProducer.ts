@@ -23,6 +23,15 @@ export const productUpdateProducer = async (
             },
           ],
         },
+        {
+          topic: "cart-service-topic",
+          messages: [
+            {
+              key: "update_product",
+              value: JSON.stringify({body:JSON.stringify(body),id:productId}),
+            },
+          ],
+        },
       ];
 
       await producer.sendBatch({ topicMessages: messages });

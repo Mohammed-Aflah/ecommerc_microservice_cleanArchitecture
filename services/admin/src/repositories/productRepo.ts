@@ -14,7 +14,7 @@ export class ProductRepository implements IProductRepository {
     return newProduct?.toObject();
   }
   async getAllProduct(): Promise<Product[]> {
-    const allProducts = await productMoel.find({});
+    const allProducts = await productMoel.find({status:true});
     return allProducts;
   }
   async getSpecificProduct(id: string): Promise<Product> {

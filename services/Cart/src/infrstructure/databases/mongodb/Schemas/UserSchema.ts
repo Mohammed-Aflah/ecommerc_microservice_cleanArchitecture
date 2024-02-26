@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const authModel = new mongoose.Schema({
+const userModel = new mongoose.Schema({
   email: String,
   password: String,
   role: {
@@ -12,4 +12,4 @@ const authModel = new mongoose.Schema({
   status:Boolean,
 });
 const modelName = String(process.env.USER_MODEL);
-export default mongoose.model(modelName, authModel);
+export default mongoose.model(modelName, userModel);

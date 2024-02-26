@@ -21,6 +21,15 @@ export const productCreateProducer = async (data: {
           },
         ],
       },
+      {
+        topic: "cart-service-topic",
+        messages: [
+          {
+            key: "create_product",
+            value: JSON.stringify(data),
+          },
+        ],
+      },
     ];
 
     await producer.sendBatch({topicMessages:messages})

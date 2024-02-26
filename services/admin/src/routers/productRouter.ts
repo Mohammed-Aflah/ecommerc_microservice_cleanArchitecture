@@ -20,5 +20,5 @@ productRouter
   .route("/api/product/control/:productId")
   .put(verifyAdminAuth, productController.updateProduct.bind(productController))
   .get(verifyAdminAuth, productController.getOneProduct.bind(productController))
-  .delete(verifyAdminAuth);
+  .delete(verifyAdminAuth,productController.deleteProduct.bind(productController));
 export default productRouter;

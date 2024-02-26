@@ -6,7 +6,7 @@ import { IProductRepository } from "../interfaces/IProductRepository";
 export class ProductRepository implements IProductRepository {
   async getAllProduct(limit: number): Promise<Product[]> {
     try {
-      const allProduct = await productModel.find().limit(limit).lean();
+      const allProduct = await productModel.find({status:true}).limit(limit).lean();
       const products: Product[] = allProduct.map((product: any) => ({
         status: product.status || false,
         description: product.description || "",

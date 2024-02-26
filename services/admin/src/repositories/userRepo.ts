@@ -4,12 +4,12 @@ import { IUserRepository } from "../interfaces/repo_interaces/IUserRepository";
 
 export class UserRepository implements IUserRepository {
   async getAllUsers(limit: number): Promise<User[] | any> {
-    const allUsers = await userModel.find({role:"user"}).limit(limit);
+    const allUsers = await userModel.find({ role: "user" }).limit(limit);
     return allUsers;
   }
   async getSpecificUser(id: string): Promise<User | any> {
     const specificUser = await userModel.findById(id);
-    
+
     return specificUser?.toObject();
   }
   // async blockAndUnblockUser(id: string): Promise<User> {
@@ -37,13 +37,12 @@ export class UserRepository implements IUserRepository {
     return newUser.toObject();
   }
   async blockUser(id: string): Promise<User> {
-    let user = await userModel.findOne({ _id: id });
+    let user = await userModel.findById(id.trim());
+    console.log("🚀 ~ UserRepository ~ blockUser ~ user:", user)
+    console.log("🚀 ~ UserRepository ~ blockUser ~ user:", id)
     if (user) {
       user.status = false;
       user?.save();
-    }
-    user = await userModel.findOne({ _id: id });
-    if (user) {
       return user?.toObject();
     } else {
       throw Error("something went wrong");
