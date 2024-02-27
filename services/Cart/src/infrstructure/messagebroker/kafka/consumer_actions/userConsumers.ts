@@ -10,6 +10,8 @@ export class UserConsumerActions {
   }
   async blockUser(data:{id: string, status: boolean}) {
     try {
+      console.log('_+_+_+_+');
+      
       await UserSchema.updateOne({ _id: data.id }, { $set: { status: data.status } });
     } catch (error) {
       console.log("🚀 ~ UserConsumerActions ~ blockUser ~ error:", error);

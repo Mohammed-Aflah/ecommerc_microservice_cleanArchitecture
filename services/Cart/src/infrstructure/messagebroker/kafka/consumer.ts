@@ -14,6 +14,7 @@ export const watchKafkaConsumer = async () => {
       eachMessage: async ({ message }) => {
         console.log(`Cart service consumer called`);
         const { key, value } = message;
+        console.log("🚀 ~ eachMessage: ~ key:", key?.toString("utf-8"))
         const userConsumerAction = new UserConsumerActions();
         const productConsumerAction = new ProductConsumerActions();
         switch (key?.toString("utf-8")) {
@@ -21,7 +22,7 @@ export const watchKafkaConsumer = async () => {
             const userData = JSON.parse(value?.toString("utf-8") ?? "");
             await userConsumerAction.createUser(userData);
             break;
-          case "blockAndunblock_user":
+          case "blockunblock_user":
             const blockData = JSON.parse(value?.toString("utf-8") ?? "");
             await userConsumerAction.blockUser(blockData);
             break;

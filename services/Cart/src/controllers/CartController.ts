@@ -11,7 +11,7 @@ export class CartController {
      
       
       const cartData = await this.interactor.addToCart(req.body);
-      res.status(500).json({ status: true, message: "Item added", cartData });
+      res.status(200).json({ status: true, message: "Item added", cartData });
     } catch (error: Error | any) {
       res.status(500).json({ status: false, message: error.message });
     }
@@ -20,7 +20,7 @@ export class CartController {
   async removeItemFromCart(req: Request, res: Response) {
     try {
       const cartData = await this.interactor.deleteItemfromCart(req.body);
-      res.status(500).json({ status: true, message: "Item deleted", cartData });
+      res.status(200).json({ status: true, message: "Item deleted", cartData });
     } catch (error: Error | any) {
       res.status(500).json({ status: false, message: error.message });
     }
@@ -33,7 +33,7 @@ export class CartController {
       const { userId } = req.params;
       const cartData = await this.interactor.getAllItemsinCart(userId);
       res
-        .status(500)
+        .status(200)
         .json({ status: true, message: "All items!", cart: cartData });
     } catch (error: Error | any) {
       console.log("🚀 ~ CartController ~ seeAllItemFromCart ~ error:", error)
