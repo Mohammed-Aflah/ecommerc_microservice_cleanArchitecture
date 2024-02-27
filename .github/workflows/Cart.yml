@@ -1,16 +1,16 @@
-name: Product-service-CICD
+name: Cart-service-CICD
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'Product/**'
+      - 'services/Cart/**'
   pull_request:
     branches:
      - main
     paths:
-     - 'Product/**'
+     - 'services/Cart/**'
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./Product
-            file: ./Product/Dockerfile
+          context: ./services/Cart
+            file: ./services/Cart/Dockerfile
             push: true
-            tags: aflu/Ecome-product-service:latest
+            tags: aflu/Ecome-cart-service:latest

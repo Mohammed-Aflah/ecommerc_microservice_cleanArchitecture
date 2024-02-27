@@ -1,16 +1,16 @@
-name: admin-service-CICD
+name: auth-service-CICD
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'admin/**'
+      - 'services/auth/**'
   pull_request:
     branches:
      - main
     paths:
-     - 'admin/**'
+     - 'services/auth/**'
 
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ./admin
-            file: ./admin/Dockerfile
+          context: ./services/auth
+            file: ./services/auth/Dockerfile
             push: true
-            tags: aflu/Ecome-admin-service:latest
+            tags: aflu/Ecome-auth-service:latest
