@@ -8,9 +8,9 @@ on:
       - 'services/admin/**'
   pull_request:
     branches:
-     - main
+      - main
     paths:
-     - 'services/admin/**'
+      - 'services/admin/**'
 
 jobs:
   build:
@@ -24,7 +24,6 @@ jobs:
 
       - name: Log in to Docker hub
         uses: docker/login-action@v1
-
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -33,6 +32,5 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./services/admin
-          
-            push: true
-            tags: aflu/Ecome-admin-service:latest
+          push: true
+          tags: aflu/Ecome-admin-service:latest
