@@ -20,6 +20,7 @@ app.use(cookieParser());
 
 app.use('/',productRouter)
 
+// for CIDCD
 app.listen(process.env.PRODUCT_SERVICE_PORT, () => {
   console.log(
     `Product service started at port = ${process.env.PRODUCT_SERVICE_PORT}`

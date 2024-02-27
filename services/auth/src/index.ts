@@ -23,6 +23,7 @@ app.use(cors());
 })();
 
 app.use("/", authRouter);
+// for CIDCD
 
 app.listen(PORT, () => {
   console.log(`Auth Service started on port -> ${PORT}`);

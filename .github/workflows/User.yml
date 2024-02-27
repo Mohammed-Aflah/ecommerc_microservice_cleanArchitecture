@@ -33,4 +33,4 @@ jobs:
         with:
           context: ./services/User
           push: true
-          tags: aflu/Ecome-user-service:latest
+          tags: aflu/ecome-user-service:latest

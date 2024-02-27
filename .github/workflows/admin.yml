@@ -33,4 +33,4 @@ jobs:
         with:
           context: ./services/admin
           push: true
-          tags: aflu/Ecome-admin-service:latest
+          tags: aflu/ecome-admin-service:latest

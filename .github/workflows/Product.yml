@@ -33,4 +33,4 @@ jobs:
         with:
           context: ./services/Product
           push: true
-          tags: aflu/Ecome-product-service:latest
+          tags: aflu/ecome-product-service:latest

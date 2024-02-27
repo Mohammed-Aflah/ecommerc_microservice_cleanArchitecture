@@ -23,6 +23,8 @@ app.use("/user", userRouter);
   });
 })();
 
+// for CIDCD
+
 app.listen(process.env.ADMIN_SERVICE_PORT, () =>
   console.log(
     `Admin service started on port = ${process.env.ADMIN_SERVICE_PORT}`

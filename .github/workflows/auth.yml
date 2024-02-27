@@ -33,4 +33,4 @@ jobs:
         with:
           context: ./services/auth
           push: true
-          tags: aflu/Ecome-auth-service:latest
+          tags: aflu/ecome-auth-service:latest
