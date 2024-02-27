@@ -20,6 +20,7 @@ app.use(require('cookie-parser')())
 
 app.use("/", cartRouter);
 ///
+// hellow
 app.listen(process.env.CART_SERVICE_PORT, () =>
   console.log(`Cart service started on port ${process.env.CART_SERVICE_PORT}`)
 );
