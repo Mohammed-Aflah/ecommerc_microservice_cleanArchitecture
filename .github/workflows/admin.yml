@@ -33,6 +33,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./services/admin
-            file: ./services/admin/Dockerfile
+          
             push: true
             tags: aflu/Ecome-admin-service:latest

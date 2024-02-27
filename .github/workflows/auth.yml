@@ -33,6 +33,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./services/auth
-            file: ./services/auth/Dockerfile
+           
             push: true
             tags: aflu/Ecome-auth-service:latest

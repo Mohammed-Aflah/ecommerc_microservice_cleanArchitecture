@@ -33,6 +33,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./services/Cart
-            file: ./services/Cart/Dockerfile
+         
             push: true
             tags: aflu/Ecome-cart-service:latest
